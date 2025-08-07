@@ -1,6 +1,32 @@
 
 import streamlit as st
 
+# Configurazione pagina con sidebar chiusa
+st.set_page_config(
+    page_title="Portale Euroirte",
+    layout="wide",
+    initial_sidebar_state="collapsed"  # <--- sidebar chiusa di default
+)
+
+# Lista di utenti autorizzati
+utenti_autorizzati = ["lbianco", "acapizzi", "gcassarino"]
+password_corretta = "Euroirte111927"
+
+# Sidebar riservata
+with st.sidebar:
+    st.markdown("## Area Riservata")
+    admin_login = st.checkbox("Accedi come amministratore")
+
+    if admin_login:
+        username = st.text_input("Nome utente")
+        password = st.text_input("Password", type="password")
+
+        if username in utenti_autorizzati and password == password_corretta:
+            st.success(f"Accesso autorizzato, benvenuto {username} 👋")
+            st.markdown("[Vai all'area di gestione file 📁](https://upload-euroirte-admin.streamlit.app/)")
+        elif username and password:
+            st.error("Credenziali errate")
+
 st.set_page_config(page_title="Portale Euroirte", layout="centered")
 
 # Logo e benvenuto
@@ -26,17 +52,3 @@ if committente == "TIM":
             st.markdown("[Vai al Report Delivery TIM](https://avanzamento-delivery-8ffqqvktcoli9kqk48dgki.streamlit.app/)")
 else:
     st.markdown("🚧 I report per Open Fiber sono attualmente in fase di sviluppo.")
-
-#sidebar Amministratore
-with st.sidebar:
-    st.markdown("## Area Riservata")
-    admin_access = st.checkbox("Accedi come amministratore")
-
-    if admin_access:
-        admin_pwd = st.text_input("Password", type="password")
-
-        if admin_pwd == "euroirte2025":
-            st.success("Accesso autorizzato")
-            st.markdown("[Vai all'area di gestione file 📁](https://upload-euroirte-admin.streamlit.app/)")
-        elif admin_pwd != "":
-            st.error("Password errata")
