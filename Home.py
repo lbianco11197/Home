@@ -23,7 +23,7 @@ with st.sidebar:
 
         if username in utenti_autorizzati and password == password_corretta:
             st.success(f"Accesso autorizzato, benvenuto {username} 👋")
-            st.markdown("[Vai all'area di gestione file 📁](https://upload-euroirte-admin.streamlit.app/)")
+            st.markdown("[Vai all'area di gestione file 📁](https://amministratore.streamlit.app/)")
         elif username and password:
             st.error("Credenziali errate")
 
