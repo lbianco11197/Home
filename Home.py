@@ -8,8 +8,6 @@ st.image("LogoEuroirte.jpg", width=200)
 st.markdown("""
 # Benvenuto nel portale di **Avanzamento Produzione Euroirte**
 
-menu = st.selectbox("Scegli una sezione", ["Benvenuto", "TIM - Report Assurance", "TIM - Report Delivery", "Area Amministratore"])
-
 Gestisci e monitora i dati di produzione per committente e tipologia di report.
 """, unsafe_allow_html=True)
 
