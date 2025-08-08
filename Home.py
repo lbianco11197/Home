@@ -1,60 +1,42 @@
-
 import streamlit as st
+import pandas as pd
+import base64
+import requests
 
-# Configurazione pagina con sidebar chiusa
-st.set_page_config(
-    page_title="Portale Euroirte",
-    layout="wide",
-    initial_sidebar_state="collapsed"  # <--- sidebar chiusa di default
-)
+st.set_page_config(layout="wide")
 
-#imposta sfondo sempre bianco e testi neri
+# --- STILE ---
 st.markdown("""
 <style>
-/* Sfondo generale bianco e testo nero */
 html, body, [data-testid="stApp"] {
     background-color: white !important;
     color: black !important;
 }
-
-/* Titoli, markdown e testi */
 h1, h2, h3, h4, h5, h6, p, span, div, label {
     color: black !important;
 }
-
-/* Radio button etichette */
 div[data-baseweb="radio"] label {
     color: black !important;
     font-weight: 600 !important;
 }
-
-/* Input e selezioni */
 input, textarea, select {
     background-color: white !important;
     color: black !important;
 }
-
-/* Pulsanti */
 button[kind="primary"], button[kind="secondary"], .stButton > button {
     background-color: white !important;
     color: black !important;
     border: 1px solid #999 !important;
     border-radius: 6px;
 }
-
-/* Pulsanti al passaggio del mouse */
 button[kind="primary"]:hover, button[kind="secondary"]:hover, .stButton > button:hover {
     background-color: #f0f0f0 !important;
     color: black !important;
 }
-
-/* Dataframe */
 .css-1d391kg, .stDataFrame, .css-1m3z7sd {
     color: black !important;
     background-color: white !important;
 }
-
-/* Riduzione padding su mobile */
 @media only screen and (max-width: 768px) {
     .stRadio > div {
         flex-direction: row !important;
@@ -68,47 +50,98 @@ button[kind="primary"]:hover, button[kind="secondary"]:hover, .stButton > button
 </style>
 """, unsafe_allow_html=True)
 
-# Lista di utenti autorizzati
+# --- LOGO E HOME ---
+st.image("LogoEuroirte.jpg", width=180)
+st.link_button("🏠 Torna alla Home", url="https://homeeuroirte.streamlit.app/")
+st.title("Gestione File Report - Euroirte s.r.l.")
+
+# --- AUTENTICAZIONE ---
 utenti_autorizzati = ["lbianco", "acapizzi", "gcassarino"]
 password_corretta = "Euroirte111927"
 
-# Sidebar riservata
-with st.sidebar:
-    st.markdown("## Area Riservata")
-    admin_login = st.checkbox("Accedi come amministratore")
+username = st.text_input("Nome utente")
+password = st.text_input("Password", type="password")
 
-    if admin_login:
-        username = st.text_input("Nome utente")
-        password = st.text_input("Password", type="password")
+if username not in utenti_autorizzati or password != password_corretta:
+    st.warning("Accesso riservato. Inserisci le credenziali corrette.")
+    st.stop()
 
-        if username in utenti_autorizzati and password == password_corretta:
-            st.success(f"Accesso autorizzato, benvenuto {username} 👋")
-            st.markdown("[Vai all'area di gestione file 📁](https://amministratore.streamlit.app/)")
-        elif username and password:
-            st.error("Credenziali errate")
+st.success(f"Benvenuto {username}! Seleziona il file da aggiornare.")
 
-st.set_page_config(page_title="Portale Euroirte", layout="centered")
+# --- MAPPATURA REPORT ---
+report_options = {
+    "Delivery TIM": ("delivery.xlsx", "lbianco11197/Avanzamento-Delivery"),
+    "Assurance TIM": ("assurance.xlsx", "lbianco11197/Avanzamento-Impulsiva-v2"),
+    "Delivery Open Fiber": ("deliveryopenfiber.xlsx", None),
+    "Assurance Open Fiber": ("assuranceopenfiber.xlsx", None)
+}
 
-# Logo e benvenuto
-st.image("LogoEuroirte.jpg", width=200)
-st.markdown("""
-# Benvenuto nel portale di **Avanzamento Produzione Euroirte**
+report_choice = st.selectbox("Seleziona il report da aggiornare", list(report_options.keys()))
+selected_file_name, github_repo = report_options[report_choice]
 
-Gestisci e monitora i dati di produzione per committente e tipologia di report.
-""", unsafe_allow_html=True)
+# --- AVVISO ---
+st.info(f"⚠️ Il file da caricare deve essere chiamato esattamente: **{selected_file_name}**")
 
-# Scelta Committente
-st.markdown("## Seleziona la committente")
-committente = st.radio("", ["TIM", "OPEN FIBER"], horizontal=True)
+uploaded_file = st.file_uploader("Seleziona il file Excel (.xlsx) da caricare", type=["xlsx"])
 
-if committente == "TIM":
-    st.markdown("### Seleziona il tipo di report")
-    col1, col2 = st.columns(2)
-    with col1:
-        if st.button("📈 Report Assurance"):
-            st.markdown("[Vai al Report Assurance TIM](https://avanzamento-impulsiva-v2-ds8ntkmcuqu3mtlak3ntog.streamlit.app/)")
-    with col2:
-        if st.button("📊 Report Delivery"):
-            st.markdown("[Vai al Report Delivery TIM](https://avanzamento-delivery-8ffqqvktcoli9kqk48dgki.streamlit.app/)")
-else:
-    st.markdown("🚧 I report per Open Fiber sono attualmente in fase di sviluppo.")
+# --- FUNZIONE PER UPLOAD SU GITHUB ---
+def upload_to_github(repo, path_in_repo, file_data, commit_message):
+    token = st.secrets["github_token"]
+    headers = {
+        "Authorization": f"token {token}",
+        "Accept": "application/vnd.github+json"
+    }
+
+    get_url = f"https://api.github.com/repos/{repo}/contents/{path_in_repo}"
+    get_resp = requests.get(get_url, headers=headers)
+
+    if get_resp.status_code == 200:
+        sha = get_resp.json()["sha"]
+    else:
+        st.error(f"❌ Errore nel recupero SHA: {get_resp.json().get('message', '')}")
+        return False
+
+    encoded_content = base64.b64encode(file_data).decode('utf-8')
+
+    data = {
+        "message": commit_message,
+        "content": encoded_content,
+        "sha": sha,
+        "branch": "main"
+    }
+
+    put_resp = requests.put(get_url, headers=headers, json=data)
+    return put_resp.status_code == 200
+
+# --- BLOCCO UPLOAD ---
+if uploaded_file:
+    uploaded_filename = uploaded_file.name
+    st.write(f"📄 File selezionato: `{uploaded_filename}`")
+
+    if st.button("Carica"):
+        if uploaded_filename != selected_file_name:
+            st.error(f"❌ Nome file non valido. Hai caricato '{uploaded_filename}', ma è richiesto '{selected_file_name}'.")
+            st.stop()
+
+        try:
+            df_new = pd.read_excel(uploaded_file)
+
+            if github_repo:
+                excel_bytes = uploaded_file.getvalue()
+                success = upload_to_github(
+                    repo=github_repo,
+                    path_in_repo=selected_file_name,
+                    file_data=excel_bytes,
+                    commit_message=f"Aggiornamento da {username} via Streamlit"
+                )
+                if success:
+                    st.success(f"✅ File '{selected_file_name}' aggiornato su GitHub con successo!")
+                else:
+                    st.error("❌ Errore durante l'upload su GitHub.")
+            else:
+                st.warning("⚠️ Questo report non è ancora configurato per l'upload su GitHub.")
+
+            st.dataframe(df_new.head(), use_container_width=True)
+
+        except Exception as e:
+            st.error(f"Errore durante l'upload del file: {e}")
