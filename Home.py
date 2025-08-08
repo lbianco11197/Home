@@ -106,9 +106,11 @@ committente = st.radio("", ["TIM", "OPEN FIBER"], horizontal=True)
 if committente == "TIM":
     st.markdown("### Seleziona il tipo di report")
     col1, col2 = st.columns(2)
+
     with col1:
-    st.link_button("📑 Vai al Report Assurance TIM", "https://avanzamento-impulsiva-v2-ds8ntkmcuq3mtlak3ntog.streamlit.app/")
+        st.link_button("📝 Vai al Report Assurance TIM", "https://avanzamento-impulsiva-v2-ds8ntkmcuq3mtlak3ntog.streamlit.app/")
     with col2:
-    st.link_button("📊 Vai al Report Delivery TIM", "https://avanzamento-delivery-8ffqqvktcoi9kqk48dgki.streamlit.app/")
+        st.link_button("📊 Vai al Report Delivery TIM", "https://avanzamento-delivery-8ffqqvktcoi9kqk48dgki.streamlit.app/")
+
 else:
-    st.markdown("🚧 I report per Open Fiber sono attualmente in fase di sviluppo.")
+    st.markdown("⚠️ I report per Open Fiber sono attualmente in fase di sviluppo.")
