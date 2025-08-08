@@ -11,38 +11,25 @@ st.set_page_config(
 #imposta sfondo sempre bianco e testi neri
 st.markdown("""
     <style>
-    /* Sfondo e testo di base */
-    html, body, [data-testid="stApp"] {
-        background-color: white !important;
-        color: black !important;
-    }
-
-    /* RADIO BUTTON - Forza etichette nere */
-    .stRadio div[role="radiogroup"] label span {
-        color: black !important;
-        font-weight: 500 !important;
-    }
-
-    /* RADIO BUTTON - Mobile layout più leggibile */
-    @media only screen and (max-width: 768px) {
-        .stRadio > div {
-            flex-direction: row !important;
-            justify-content: space-evenly;
-            gap: 10px;
+        html, body, [data-testid="stApp"] {
+            background-color: white !important;
+            color: black !important;
         }
-        .stRadio div[role="radiogroup"] label span {
-            font-size: 15px !important;
-        }
-    }
 
-    /* Pulsanti */
-    .stButton > button {
-        background-color: white !important;
-        color: black !important;
-        border: 1px solid #ccc !important;
-        border-radius: 6px !important;
-    }
+        /* Radio button testo */
+        div[data-baseweb="radio"] label span {
+            color: black !important;
+            font-weight: 600 !important;
+        }
     </style>
+
+    <script>
+        const labels = window.parent.document.querySelectorAll('label span');
+        labels.forEach(label => {
+            label.style.color = 'black';
+            label.style.fontWeight = '600';
+        });
+    </script>
 """, unsafe_allow_html=True)
 
 # Lista di utenti autorizzati
