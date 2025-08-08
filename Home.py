@@ -8,43 +8,40 @@ st.set_page_config(
     initial_sidebar_state="collapsed"  # <--- sidebar chiusa di default
 )
 
+#imposta sfondo sempre bianco e testi neri
 st.markdown("""
     <style>
-    /* Sfondo bianco e testo nero */
+    /* Sfondo e testo di base */
     html, body, [data-testid="stApp"] {
         background-color: white !important;
         color: black !important;
     }
 
-    /* Pulsanti e radio più piccoli su mobile */
-    @media only screen and (max-width: 768px) {
-        button, .stButton button {
-            padding: 8px 16px !important;
-            font-size: 14px !important;
-        }
-        label, .stRadio label {
-            font-size: 14px !important;
-        }
-        .stRadio > div {
-            flex-direction: row !important;
-            justify-content: space-around;
-        }
-    }
-
-    /* Radio button: forza il colore delle etichette */
-    .stRadio div[role="radiogroup"] > label {
+    /* RADIO BUTTON - Forza etichette nere */
+    .stRadio div[role="radiogroup"] label span {
         color: black !important;
         font-weight: 500 !important;
     }
 
-    /* Rimuove sfondi scuri dei pulsanti */
+    /* RADIO BUTTON - Mobile layout più leggibile */
+    @media only screen and (max-width: 768px) {
+        .stRadio > div {
+            flex-direction: row !important;
+            justify-content: space-evenly;
+            gap: 10px;
+        }
+        .stRadio div[role="radiogroup"] label span {
+            font-size: 15px !important;
+        }
+    }
+
+    /* Pulsanti */
     .stButton > button {
         background-color: white !important;
         color: black !important;
         border: 1px solid #ccc !important;
         border-radius: 6px !important;
     }
-
     </style>
 """, unsafe_allow_html=True)
 
