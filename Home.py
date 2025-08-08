@@ -10,26 +10,62 @@ st.set_page_config(
 
 #imposta sfondo sempre bianco e testi neri
 st.markdown("""
-    <style>
-        html, body, [data-testid="stApp"] {
-            background-color: white !important;
-            color: black !important;
-        }
+<style>
+/* Sfondo generale bianco e testo nero */
+html, body, [data-testid="stApp"] {
+    background-color: white !important;
+    color: black !important;
+}
 
-        /* Radio button testo */
-        div[data-baseweb="radio"] label span {
-            color: black !important;
-            font-weight: 600 !important;
-        }
-    </style>
+/* Titoli, markdown e testi */
+h1, h2, h3, h4, h5, h6, p, span, div, label {
+    color: black !important;
+}
 
-    <script>
-        const labels = window.parent.document.querySelectorAll('label span');
-        labels.forEach(label => {
-            label.style.color = 'black';
-            label.style.fontWeight = '600';
-        });
-    </script>
+/* Radio button etichette */
+div[data-baseweb="radio"] label {
+    color: black !important;
+    font-weight: 600 !important;
+}
+
+/* Input e selezioni */
+input, textarea, select {
+    background-color: white !important;
+    color: black !important;
+}
+
+/* Pulsanti */
+button[kind="primary"], button[kind="secondary"], .stButton > button {
+    background-color: white !important;
+    color: black !important;
+    border: 1px solid #999 !important;
+    border-radius: 6px;
+}
+
+/* Pulsanti al passaggio del mouse */
+button[kind="primary"]:hover, button[kind="secondary"]:hover, .stButton > button:hover {
+    background-color: #f0f0f0 !important;
+    color: black !important;
+}
+
+/* Dataframe */
+.css-1d391kg, .stDataFrame, .css-1m3z7sd {
+    color: black !important;
+    background-color: white !important;
+}
+
+/* Riduzione padding su mobile */
+@media only screen and (max-width: 768px) {
+    .stRadio > div {
+        flex-direction: row !important;
+        gap: 1rem;
+        justify-content: space-around;
+    }
+    .stRadio label {
+        font-size: 14px !important;
+    }
+}
+</style>
 """, unsafe_allow_html=True)
 
 # Lista di utenti autorizzati
