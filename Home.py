@@ -8,28 +8,47 @@ st.set_page_config(
     initial_sidebar_state="collapsed"  # <--- sidebar chiusa di default
 )
 
-# Imposta sfondo bianco e testo nero
-st.markdown(
-    """
+st.markdown("""
     <style>
-        html, body, [data-testid="stApp"] {
-            background-color: white !important;
-            color: black !important;
+    /* Sfondo bianco e testo nero */
+    html, body, [data-testid="stApp"] {
+        background-color: white !important;
+        color: black !important;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    /* Pulsanti e radio più piccoli su mobile */
+    @media only screen and (max-width: 768px) {
+        button, .stButton button {
+            padding: 8px 16px !important;
+            font-size: 14px !important;
         }
-        .stTextInput input, .stPasswordInput input, .stSelectbox, .stFileUploader, .stButton {
-            color: black !important;
-            background-color: white !important;
+        label, .stRadio label {
+            font-size: 14px !important;
         }
-        .stMarkdown, .stDataFrame, .stAlert {
-            color: black !important;
+        .stRadio > div {
+            flex-direction: row !important;
+            justify-content: space-around;
         }
-        .css-1d391kg {  /* Titolo */
-            color: black !important;
-        }
+    }
+
+    /* Rimuove sfondi scuri dei pulsanti */
+    .stButton > button {
+        background-color: white !important;
+        color: black !important;
+        border: 1px solid #ccc !important;
+        border-radius: 6px !important;
+    }
+
+    /* Per i pulsanti con icone custom */
+    .css-1x8cf1d, .css-1x8cf1d:hover {
+        background-color: white !important;
+        color: black !important;
+        border: 1px solid #ccc !important;
+    }
+
     </style>
-    """,
-    unsafe_allow_html=True
-)
+""", unsafe_allow_html=True)
 
 # Lista di utenti autorizzati
 utenti_autorizzati = ["lbianco", "acapizzi", "gcassarino"]
