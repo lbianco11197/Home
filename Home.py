@@ -8,6 +8,29 @@ st.set_page_config(
     initial_sidebar_state="collapsed"  # <--- sidebar chiusa di default
 )
 
+# Imposta sfondo bianco e testo nero
+st.markdown(
+    """
+    <style>
+        html, body, [data-testid="stApp"] {
+            background-color: white !important;
+            color: black !important;
+        }
+        .stTextInput input, .stPasswordInput input, .stSelectbox, .stFileUploader, .stButton {
+            color: black !important;
+            background-color: white !important;
+        }
+        .stMarkdown, .stDataFrame, .stAlert {
+            color: black !important;
+        }
+        .css-1d391kg {  /* Titolo */
+            color: black !important;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 # Lista di utenti autorizzati
 utenti_autorizzati = ["lbianco", "acapizzi", "gcassarino"]
 password_corretta = "Euroirte111927"
