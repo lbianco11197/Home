@@ -75,7 +75,7 @@ password_corretta = "Euroirte111927"
 # Sidebar riservata
 with st.sidebar:
     st.markdown("## Area Riservata")
-   st.checkbox("Accedi come amministratore")
+    st.checkbox("Accedi come amministratore")
 
     if admin_login:
         username = st.text_input("Nome utente")
