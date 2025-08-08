@@ -14,7 +14,6 @@ st.markdown("""
     html, body, [data-testid="stApp"] {
         background-color: white !important;
         color: black !important;
-        font-family: 'Segoe UI', sans-serif;
     }
 
     /* Pulsanti e radio più piccoli su mobile */
@@ -32,19 +31,18 @@ st.markdown("""
         }
     }
 
+    /* Radio button: forza il colore delle etichette */
+    .stRadio div[role="radiogroup"] > label {
+        color: black !important;
+        font-weight: 500 !important;
+    }
+
     /* Rimuove sfondi scuri dei pulsanti */
     .stButton > button {
         background-color: white !important;
         color: black !important;
         border: 1px solid #ccc !important;
         border-radius: 6px !important;
-    }
-
-    /* Per i pulsanti con icone custom */
-    .css-1x8cf1d, .css-1x8cf1d:hover {
-        background-color: white !important;
-        color: black !important;
-        border: 1px solid #ccc !important;
     }
 
     </style>
