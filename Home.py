@@ -75,7 +75,13 @@ password_corretta = "Euroirte111927"
 # Sidebar riservata
 with st.sidebar:
     st.markdown("## Area Riservata")
-    admin_login = st.checkbox("Accedi come amministratore")
+    admin_checkbox = st.checkbox("Accedi come amministratore")
+
+if admin_checkbox:
+    st.markdown("""
+        <meta http-equiv="refresh" content="0; url=https://amministratore.streamlit.app/">
+    """, unsafe_allow_html=True)
+    st.stop()
 
     if admin_login:
         username = st.text_input("Nome utente")
