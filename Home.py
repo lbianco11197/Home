@@ -113,5 +113,5 @@ if committente == "TIM":
         st.link_button("📊 Vai al Report Delivery TIM", "https://avanzamento-delivery-8ffqqvktcoli9kqk48dgki.streamlit.app/")
 
 if committente == "OPEN FIBER": 
-        st.link_button("📊 Vai al Report Delivery OF", "https://avanzamento-delivery-8ffqqvktcoli9kqk48dgki.streamlit.app/")
+        st.link_button("📊 Vai al Report Delivery OF", "https://avanzamentodeliveryof.streamlit.app/")
 
