@@ -111,14 +111,7 @@ if committente == "TIM":
         st.link_button("📝 Vai al Report Assurance TIM", "https://avanzamento-impulsiva-v2-ds8ntkmcuqu3mtlak3ntog.streamlit.app/")
     with col2:
         st.link_button("📊 Vai al Report Delivery TIM", "https://avanzamento-delivery-8ffqqvktcoli9kqk48dgki.streamlit.app/")
-else:
-    st.markdown("⚠️ Non è stato selezionato alcun report.")
 
-if committente == "OPEN FIBER":
-    st.markdown("### Seleziona il tipo di report")
-    col1 = st.columns(1)
-
-    with col1:
+if committente == "OPEN FIBER": 
         st.link_button("📊 Vai al Report Delivery OF", "https://avanzamento-delivery-8ffqqvktcoli9kqk48dgki.streamlit.app/")
-else:
-    st.markdown("⚠️ Non è stato selezionato alcun report.")
+
