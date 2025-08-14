@@ -116,6 +116,6 @@ if committente == "OPEN FIBER":
         st.link_button("📊 Vai al Report Delivery OF", "https://avanzamentodeliveryof.streamlit.app/")
 
 # --- Nuovo titolo e pulsante per avanzamento economico ---
-    st.markdown("## Verifica l'avanzamento economico")
-    st.link_button("💶 Vai al Report Economico", "https://avanzamento-economico.streamlit.app/")
+st.markdown("## Verifica l'avanzamento economico")
+st.link_button("💶 Vai al Report Economico", "https://avanzamento-economico.streamlit.app/")
 
