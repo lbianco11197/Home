@@ -102,7 +102,7 @@ with st.sidebar:
 st.set_page_config(page_title="Portale Euroirte", layout="centered")
 
 # Logo e benvenuto
-st.image("LogoEuroirte.jpg", width=200)
+st.image("LogoEuroirte.png", width=200)
 st.markdown("""
 # Benvenuto nel portale di **Avanzamento Produzione Euroirte**
 
