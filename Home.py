@@ -3,21 +3,70 @@ import pandas as pd
 import base64
 import requests
 
+# Funzione per caricare e codificare l'immagine di sfondo
+def add_bg_from_local(image_file):
+    with open(image_file, "rb") as image_file:
+        encoded_string = base64.b64encode(image_file.read()).decode()
+    st.markdown(
+        f"""
+        <style>
+        .stApp {{
+            background-image: url("data:image/png;base64,{encoded_string}");
+            background-size: cover;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
 # Configurazione pagina con sidebar chiusa
 st.set_page_config(
     page_title="Portale Euroirte",
     layout="wide",
+    # --- IMPOSTA L'IMMAGINE DI SFONDO ---
+# Assicurati di avere un file 'sfondo.jpg' nella stessa cartella dello script
+try:
+    add_bg_from_local('sfondo.png')
+except FileNotFoundError:
+    st.warning("Immagine di sfondo 'sfondo.png' non trovata. Verrà usato uno sfondo bianco.")
+
+# --- MODIFICA LO STILE CSS ESISTENTE ---
+st.markdown(
+    """
+    <style>
+    /* Rimuovi lo sfondo bianco per far vedere l'immagine */
+    /* html, body, [data-testid="stApp"] { background-color: white !important; } */
+
+    /* Rendi i widget leggermente trasparenti per leggibilità */
+    .stSelectbox div[data-baseweb="select"],
+    .stDataFrame, .stDataFrame table, .stDataFrame th, .stDataFrame td,
+    .stButton > button,
+    div[data-baseweb="radio"] {
+        background-color: rgba(255, 255, 255, 0.8) !important;
+    }
+
+    /* Il resto del tuo stile rimane invariato */
+    .stSelectbox span, .stSelectbox label { color: black !important; font-weight: 500; }
+    .stButton > button { color: black !important; border: 1px solid #999 !important; border-radius: 6px; }
+    div[data-baseweb="radio"] label span { color: black !important; font-weight: 600 !important; }
+    header [data-testid="theme-toggle"] { display: none; }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
     initial_sidebar_state="collapsed"  # <--- sidebar chiusa di default
 )
 
 #imposta sfondo sempre bianco e testi neri
-st.markdown("""
-<style>
-/* Sfondo generale bianco e testo nero */
-html, body, [data-testid="stApp"] {
-    background-color: white !important;
-    color: black !important;
-}
+#st.markdown("""
+#<style>
+#/* Sfondo generale bianco e testo nero */
+#html, body, [data-testid="stApp"] {
+#    background-color: white !important;
+#    color: black !important;
+#}
 
 /* Titoli, markdown e testi */
 h1, h2, h3, h4, h5, h6, p, span, div, label {
