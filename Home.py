@@ -43,10 +43,7 @@ except FileNotFoundError:
 # 4. Nuovo Stile CSS per leggibilità
 st.markdown("""
 <style>
-/* Rimuove lo sfondo bianco forzato per mostrare l'immagine */
-/* html, body, [data-testid="stApp"] { background-color: white !important; } */
-
-/* Contenitore principale con sfondo semi-trasparente per leggibilità */
+/* Contenitore principale con sfondo semi-trasparente */
 [data-testid="stApp"] > div > div:nth-child(2) > div {
     background-color: rgba(255, 255, 255, 0.85);
     padding: 2rem;
@@ -58,25 +55,40 @@ h1, h2, h3, p, span, div, label {
     color: black !important;
 }
 
-/* Pulsanti con sfondo non trasparente */
+/* --- INPUT (anche nella SIDEBAR) con bordo grigio chiaro --- */
+.stTextInput > div > div > input,
+.stPasswordInput > div > div > input,
+.stSelectbox div[data-baseweb="select"],
+.stMultiSelect div[data-baseweb="select"],
+.stNumberInput input,
+.stDateInput input,
+.stTextArea textarea {
+    background-color: rgba(255,255,255,0.9) !important;
+    border: 1px solid #ddd !important;   /* 👈 bordo grigio chiaro */
+    border-radius: 8px;
+    color: #000 !important;
+}
+
+/* Pulsanti */
 .stButton > button {
     background-color: white !important;
     color: black !important;
-    border: 1px solid #999 !important;
+    border: 1px solid #ddd !important;   /* 👈 bordo chiaro */
+    border-radius: 8px;
 }
 .stButton > button:hover {
     background-color: #f0f0f0 !important;
 }
 
-/* Link Button con sfondo non trasparente */
+/* Link Button */
 .stLinkButton > a {
     background-color: white !important;
-    border: 1px solid #999 !important;
+    border: 1px solid #ddd !important;
+    border-radius: 8px;
 }
 .stLinkButton > a:hover {
     background-color: #f0f0f0 !important;
 }
-
 </style>
 """, unsafe_allow_html=True)
 
