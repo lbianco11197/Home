@@ -92,6 +92,15 @@ h1, h2, h3, p, span, div, label {
 </style>
 """, unsafe_allow_html=True)
 
+st.markdown("""
+<style>
+/* Linea di separazione sulla sidebar */
+[data-testid="stSidebar"] {
+    border-right: 2px solid #ddd !important;  /* 👈 linea grigio chiaro */
+}
+</style>
+""", unsafe_allow_html=True)
+
 # Lista di utenti autorizzati
 utenti_autorizzati = ["lbianco", "acapizzi", "gcassarino"]
 password_corretta = "Euroirte111927"
