@@ -123,19 +123,24 @@ with st.sidebar:
 st.set_page_config(page_title="Portale Euroirte", layout="centered")
 
 # Logo e benvenuto
-st.image("LogoEuroirte.png", width=200)
+# Header: logo + bottone News
+col_logo, col_spazio, col_news = st.columns([2, 6, 2])
+
+with col_logo:
+    st.image("LogoEuroirte.png", width=180)
+
+with col_news:
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.link_button(
+        "📰 News Euroirte",
+        "https://news-euroirte.streamlit.app/"
+    )
+
 st.markdown("""
 # Benvenuto nel portale di **Avanzamento Produzione Euroirte**
 
 Gestisci e monitora i dati di produzione per committente e tipologia di report.
 """, unsafe_allow_html=True)
-
-# Bottone News
-st.markdown("##")
-st.link_button(
-    "📰 News Euroirte",
-    "https://news-euroirte.streamlit.app/"
-)
 
 # Scelta Committente
 st.markdown("## Seleziona la committente")
