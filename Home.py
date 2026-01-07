@@ -132,7 +132,7 @@ with col_logo:
 with col_news:
     st.markdown("<br>", unsafe_allow_html=True)
     st.link_button(
-        "📰 News Euroirte",
+        "📰 News",
         "https://news-euroirte.streamlit.app/"
     )
 
