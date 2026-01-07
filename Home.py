@@ -130,6 +130,13 @@ st.markdown("""
 Gestisci e monitora i dati di produzione per committente e tipologia di report.
 """, unsafe_allow_html=True)
 
+# Bottone News
+st.markdown("##")
+st.link_button(
+    "📰 News Euroirte",
+    "https://news-euroirte.streamlit.app/"
+)
+
 # Scelta Committente
 st.markdown("## Seleziona la committente")
 committente = st.radio("", ["TIM", "OPEN FIBER"], horizontal=True)
