@@ -129,6 +129,7 @@ col_logo, col_spazio, col_news = st.columns([2, 6, 2])
 with col_logo:
     st.image("LogoEuroirte.png", width=180)
 
+# BOTTONE PER IL REINDIRIZZAMENTO ALLA PAGINA NEWS
 #with col_news:
     #st.markdown("<br>", unsafe_allow_html=True)
     #st.link_button(
