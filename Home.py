@@ -129,12 +129,12 @@ col_logo, col_spazio, col_news = st.columns([2, 6, 2])
 with col_logo:
     st.image("LogoEuroirte.png", width=180)
 
-with col_news:
-    st.markdown("<br>", unsafe_allow_html=True)
-    st.link_button(
-        "📰 News A.C. IMPIANTI s.r.l.",
-        "https://news-acimpianti.streamlit.app/"
-    )
+#with col_news:
+    #st.markdown("<br>", unsafe_allow_html=True)
+    #st.link_button(
+        #"📰 News A.C. IMPIANTI s.r.l.",
+        #"https://news-acimpianti.streamlit.app/"
+    #)
 
 st.markdown("""
 # Benvenuto nel portale di **Avanzamento Produzione Euroirte**
